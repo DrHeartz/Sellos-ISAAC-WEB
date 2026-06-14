@@ -1,5 +1,14 @@
-const WHATSAPP_NUMBER = "50760000000";
+const WHATSAPP_NUMBER = "50767604522";
 const PRODUCTS_ENDPOINT = "data/productos.json";
+
+const CATEGORY_IMAGES = {
+  automatico: "assets/img/sello-automatico.svg",
+  flash: "assets/img/sello-flash.svg",
+  redondo: "assets/img/sello-redondo.svg",
+  pocket: "assets/img/oficina-sellos.svg",
+  tinta: "assets/img/tintas.svg",
+  otros: "assets/img/oficina-sellos.svg"
+};
 
 // Estado compartido del catalogo.
 let productosOriginales = [];
@@ -84,7 +93,6 @@ function buscarProductos(productos, termino) {
       producto.modelo,
       producto.tamano,
       producto.palabras_clave,
-      producto.descripcion,
       producto.sku
     ];
 
@@ -160,21 +168,24 @@ function crearTarjetaProducto(producto) {
   titulo.className = "product-title";
   titulo.textContent = producto.nombre || "Producto sin nombre";
 
+  const precio = document.createElement("span");
+  precio.className = "product-price";
+  precio.textContent = formatearPrecio(producto);
+
   const detalles = document.createElement("dl");
   detalles.className = "product-details";
   detalles.appendChild(crearDetalle("Categoria", producto.categoria || "N/A"));
   detalles.appendChild(crearDetalle("Tamano", producto.tamano || "N/A"));
-  detalles.appendChild(crearDetalle("Precio", formatearPrecio(producto)));
   detalles.appendChild(crearDetalle("Stock", producto.stock || "Consultar"));
 
   const enlace = document.createElement("a");
-  enlace.className = "btn btn-primary";
+  enlace.className = "btn btn-whatsapp";
   enlace.href = crearLinkWhatsApp(producto);
   enlace.target = "_blank";
   enlace.rel = "noopener";
   enlace.textContent = "Cotizar por WhatsApp";
 
-  cuerpo.append(categoria, titulo, detalles, enlace);
+  cuerpo.append(categoria, titulo, precio, detalles, enlace);
   tarjeta.append(media, cuerpo);
 
   return tarjeta;
@@ -184,36 +195,33 @@ function crearMediaProducto(producto) {
   const media = document.createElement("div");
   media.className = "product-media";
 
-  if (producto.url_foto) {
-    const imagen = document.createElement("img");
-    imagen.src = producto.url_foto;
-    imagen.alt = producto.nombre || "Producto de Sellos Isaac";
-    imagen.loading = "lazy";
-    imagen.addEventListener("error", () => {
-      media.innerHTML = "";
-      media.appendChild(crearPlaceholderProducto());
-    });
-    media.appendChild(imagen);
-    return media;
-  }
+  const imagen = document.createElement("img");
+  const imagenFallback = obtenerImagenCategoria(producto);
+  imagen.src = producto.url_foto || imagenFallback;
+  imagen.alt = producto.nombre || "Producto de Sellos Isaac";
+  imagen.loading = "lazy";
 
-  media.appendChild(crearPlaceholderProducto());
+  imagen.addEventListener("error", () => {
+    if (imagen.src.includes(imagenFallback)) return;
+    imagen.src = imagenFallback;
+  });
+
+  media.appendChild(imagen);
   return media;
 }
 
-function crearPlaceholderProducto() {
-  const placeholder = document.createElement("div");
-  placeholder.className = "product-placeholder";
+function obtenerImagenCategoria(producto) {
+  const categoria = normalizarTexto(producto.categoria);
+  const forma = normalizarTexto(producto.forma);
+  const nombre = normalizarTexto(producto.nombre);
 
-  const marca = document.createElement("span");
-  marca.className = "placeholder-mark";
-  marca.textContent = "SI";
+  if (categoria === "tinta") return CATEGORY_IMAGES.tinta;
+  if (categoria === "flash") return CATEGORY_IMAGES.flash;
+  if (categoria === "pocket") return CATEGORY_IMAGES.pocket;
+  if (forma.includes("redondo") || nombre.includes("redondo")) return CATEGORY_IMAGES.redondo;
+  if (categoria === "automatico") return CATEGORY_IMAGES.automatico;
 
-  const texto = document.createElement("span");
-  texto.textContent = "Imagen pendiente";
-
-  placeholder.append(marca, texto);
-  return placeholder;
+  return CATEGORY_IMAGES.otros;
 }
 
 function crearDetalle(etiqueta, valor) {

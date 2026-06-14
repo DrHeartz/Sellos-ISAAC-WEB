@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" role="img" aria-labelledby="title desc">
+  <title id="title">Sello redondo</title>
+  <desc id="desc">Ilustracion de sello redondo para empresas.</desc>
+  <rect width="360" height="260" rx="20" fill="#ffffff"/>
+  <rect x="24" y="28" width="312" height="204" rx="18" fill="#f6f6f7"/>
+  <g transform="translate(76 38)">
+    <circle cx="104" cy="104" r="88" fill="#ffffff" stroke="#0d0d0f" stroke-width="8"/>
+    <circle cx="104" cy="104" r="62" fill="#fff6f0" stroke="#f26a21" stroke-width="7"/>
+    <path d="M63 103h82" stroke="#0d0d0f" stroke-width="10" stroke-linecap="round"/>
+    <path d="M80 128h48" stroke="#f26a21" stroke-width="9" stroke-linecap="round"/>
+    <text x="104" y="72" text-anchor="middle" fill="#f26a21" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="900">SI</text>
+  </g>
+</svg>

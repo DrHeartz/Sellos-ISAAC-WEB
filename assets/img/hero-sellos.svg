@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 540" role="img" aria-labelledby="title desc">
+  <title id="title">Sellos personalizados</title>
+  <desc id="desc">Ilustracion comercial con sellos, tinta y hojas de oficina.</desc>
+  <defs>
+    <linearGradient id="bg" x1="92" y1="30" x2="591" y2="506" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#fff0e8"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="216" y1="128" x2="455" y2="402" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ff8a3d"/>
+      <stop offset="1" stop-color="#f26a21"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="680" height="540" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0d0d0f" flood-opacity=".16"/>
+    </filter>
+  </defs>
+  <rect x="28" y="28" width="624" height="484" rx="34" fill="url(#bg)"/>
+  <circle cx="574" cy="108" r="46" fill="#f26a21" opacity=".14"/>
+  <circle cx="105" cy="416" r="70" fill="#0d0d0f" opacity=".06"/>
+  <g filter="url(#shadow)">
+    <rect x="196" y="132" width="318" height="268" rx="22" fill="#ffffff"/>
+    <rect x="222" y="162" width="266" height="184" rx="14" fill="#f7f7f8" stroke="#e8e8ec"/>
+    <path d="M260 214h190M260 255h150M260 296h176" stroke="#cfd0d6" stroke-width="12" stroke-linecap="round"/>
+    <rect x="244" y="372" width="220" height="28" rx="14" fill="#0d0d0f"/>
+  </g>
+  <g transform="translate(130 102) rotate(-8)" filter="url(#shadow)">
+    <rect x="86" y="0" width="84" height="54" rx="13" fill="#ffffff" stroke="#0d0d0f" stroke-width="8"/>
+    <rect x="50" y="50" width="158" height="84" rx="18" fill="#ffffff" stroke="#0d0d0f" stroke-width="8"/>
+    <path d="M83 92h92" stroke="url(#orange)" stroke-width="16" stroke-linecap="round"/>
+    <rect x="24" y="126" width="214" height="62" rx="18" fill="#0d0d0f"/>
+  </g>
+  <g transform="translate(430 272) rotate(8)" filter="url(#shadow)">
+    <rect x="0" y="0" width="112" height="148" rx="22" fill="#ffffff" stroke="#0d0d0f" stroke-width="7"/>
+    <rect x="18" y="22" width="76" height="58" rx="10" fill="#fff4ee" stroke="#f26a21" stroke-width="5"/>
+    <rect x="18" y="96" width="76" height="24" rx="12" fill="#0d0d0f"/>
+    <circle cx="56" cy="51" r="15" fill="#f26a21"/>
+  </g>
+  <g transform="translate(114 360) rotate(-7)">
+    <ellipse cx="108" cy="50" rx="108" ry="42" fill="#fff8f3" stroke="#f26a21" stroke-width="6"/>
+    <text x="108" y="57" text-anchor="middle" fill="#cc5014" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900">Sellos Isaac</text>
+  </g>
+</svg>

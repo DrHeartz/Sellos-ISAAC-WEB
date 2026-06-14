@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" role="img" aria-labelledby="title desc">
+  <title id="title">Sello flash</title>
+  <desc id="desc">Ilustracion de sello flash rectangular moderno.</desc>
+  <rect width="360" height="260" rx="20" fill="#ffffff"/>
+  <rect x="24" y="28" width="312" height="204" rx="18" fill="#fff2ea"/>
+  <g transform="translate(62 54)">
+    <rect x="26" y="0" width="184" height="92" rx="18" fill="#ffffff" stroke="#0d0d0f" stroke-width="8"/>
+    <rect x="52" y="22" width="132" height="26" rx="13" fill="#f26a21"/>
+    <path d="M78 74h82" stroke="#0d0d0f" stroke-width="10" stroke-linecap="round"/>
+    <rect x="0" y="100" width="236" height="40" rx="14" fill="#0d0d0f"/>
+    <path d="M190 70l-22 34h26l-18 39 52-57h-30l18-16z" fill="#f26a21"/>
+  </g>
+</svg>
