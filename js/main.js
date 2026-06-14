@@ -1,0 +1,316 @@
+const WHATSAPP_NUMBER = "50760000000";
+const PRODUCTS_ENDPOINT = "data/productos.json";
+
+// Estado compartido del catalogo.
+let productosOriginales = [];
+let categoriaActiva = "Todos";
+let busquedaActual = "";
+
+document.addEventListener("DOMContentLoaded", () => {
+  prepararLinksGenerales();
+  prepararCatalogo();
+  prepararFormularioContacto();
+});
+
+// Carga los productos desde el JSON para funcionar en GitHub Pages.
+async function cargarProductos() {
+  try {
+    const respuesta = await fetch(PRODUCTS_ENDPOINT, { cache: "no-store" });
+
+    if (!respuesta.ok) {
+      throw new Error(`HTTP ${respuesta.status}`);
+    }
+
+    return await respuesta.json();
+  } catch (error) {
+    mostrarMensajeCatalogo(
+      "No se pudo cargar data/productos.json. Si abriste este archivo directamente, usa Live Server o un servidor local para probar el catalogo."
+    );
+    actualizarTotalProductos(0);
+    return [];
+  }
+}
+
+// Pinta las tarjetas del catalogo con DOM APIs para evitar HTML inyectado.
+function renderProductos(productos) {
+  const contenedor = document.querySelector("[data-productos]");
+  if (!contenedor) return;
+
+  contenedor.innerHTML = "";
+  ocultarMensajeCatalogo();
+  actualizarTotalProductos(productos.length);
+
+  if (!productos.length) {
+    mostrarMensajeCatalogo("No encontramos productos con esos filtros. Prueba con otra categoria o busqueda.");
+    return;
+  }
+
+  const fragmento = document.createDocumentFragment();
+  productos.forEach((producto) => fragmento.appendChild(crearTarjetaProducto(producto)));
+  contenedor.appendChild(fragmento);
+}
+
+// Los filtros principales usan categoria exacta; Redondo cruza forma y nombre.
+function filtrarProductos(productos, categoria) {
+  if (!categoria || normalizarTexto(categoria) === "todos") {
+    return productos;
+  }
+
+  const filtro = normalizarTexto(categoria);
+
+  if (filtro !== "redondo") {
+    return productos.filter((producto) => normalizarTexto(producto.categoria) === filtro);
+  }
+
+  return productos.filter((producto) => {
+    const camposCategoria = [
+      producto.forma,
+      producto.nombre,
+      producto.palabras_clave
+    ];
+
+    return camposCategoria.some((campo) => normalizarTexto(campo).includes(filtro));
+  });
+}
+
+// Busca en los campos comerciales mas utiles para el cliente.
+function buscarProductos(productos, termino) {
+  const busqueda = normalizarTexto(termino);
+  if (!busqueda) return productos;
+
+  return productos.filter((producto) => {
+    const camposBusqueda = [
+      producto.nombre,
+      producto.modelo,
+      producto.tamano,
+      producto.palabras_clave,
+      producto.descripcion,
+      producto.sku
+    ];
+
+    return camposBusqueda.some((campo) => normalizarTexto(campo).includes(busqueda));
+  });
+}
+
+// Centraliza el enlace para cambiar el numero una sola vez.
+function crearLinkWhatsApp(productoOMensaje) {
+  const mensaje = typeof productoOMensaje === "string"
+    ? productoOMensaje
+    : `Hola, estoy interesado en cotizar el producto ${productoOMensaje.nombre || "seleccionado"} de Sellos Isaac.`;
+
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
+}
+
+async function prepararCatalogo() {
+  const contenedor = document.querySelector("[data-productos]");
+  if (!contenedor) return;
+
+  const parametros = new URLSearchParams(window.location.search);
+  const categoriaInicial = parametros.get("categoria");
+
+  if (categoriaInicial) {
+    categoriaActiva = categoriaInicial;
+    activarBotonFiltro(categoriaInicial);
+  }
+
+  productosOriginales = await cargarProductos();
+  aplicarFiltros();
+  prepararEventosCatalogo();
+}
+
+function prepararEventosCatalogo() {
+  const buscador = document.querySelector("[data-buscador]");
+  const filtros = document.querySelectorAll("[data-filtro]");
+
+  if (buscador) {
+    buscador.addEventListener("input", (evento) => {
+      busquedaActual = evento.target.value;
+      aplicarFiltros();
+    });
+  }
+
+  filtros.forEach((boton) => {
+    boton.addEventListener("click", () => {
+      categoriaActiva = boton.dataset.filtro;
+      activarBotonFiltro(categoriaActiva);
+      aplicarFiltros();
+    });
+  });
+}
+
+function aplicarFiltros() {
+  const porCategoria = filtrarProductos(productosOriginales, categoriaActiva);
+  const resultado = buscarProductos(porCategoria, busquedaActual);
+  renderProductos(resultado);
+}
+
+function crearTarjetaProducto(producto) {
+  const tarjeta = document.createElement("article");
+  tarjeta.className = "product-card";
+
+  const media = crearMediaProducto(producto);
+  const cuerpo = document.createElement("div");
+  cuerpo.className = "product-body";
+
+  const categoria = document.createElement("span");
+  categoria.className = "product-category";
+  categoria.textContent = producto.categoria || "Producto";
+
+  const titulo = document.createElement("h3");
+  titulo.className = "product-title";
+  titulo.textContent = producto.nombre || "Producto sin nombre";
+
+  const detalles = document.createElement("dl");
+  detalles.className = "product-details";
+  detalles.appendChild(crearDetalle("Categoria", producto.categoria || "N/A"));
+  detalles.appendChild(crearDetalle("Tamano", producto.tamano || "N/A"));
+  detalles.appendChild(crearDetalle("Precio", formatearPrecio(producto)));
+  detalles.appendChild(crearDetalle("Stock", producto.stock || "Consultar"));
+
+  const enlace = document.createElement("a");
+  enlace.className = "btn btn-primary";
+  enlace.href = crearLinkWhatsApp(producto);
+  enlace.target = "_blank";
+  enlace.rel = "noopener";
+  enlace.textContent = "Cotizar por WhatsApp";
+
+  cuerpo.append(categoria, titulo, detalles, enlace);
+  tarjeta.append(media, cuerpo);
+
+  return tarjeta;
+}
+
+function crearMediaProducto(producto) {
+  const media = document.createElement("div");
+  media.className = "product-media";
+
+  if (producto.url_foto) {
+    const imagen = document.createElement("img");
+    imagen.src = producto.url_foto;
+    imagen.alt = producto.nombre || "Producto de Sellos Isaac";
+    imagen.loading = "lazy";
+    imagen.addEventListener("error", () => {
+      media.innerHTML = "";
+      media.appendChild(crearPlaceholderProducto());
+    });
+    media.appendChild(imagen);
+    return media;
+  }
+
+  media.appendChild(crearPlaceholderProducto());
+  return media;
+}
+
+function crearPlaceholderProducto() {
+  const placeholder = document.createElement("div");
+  placeholder.className = "product-placeholder";
+
+  const marca = document.createElement("span");
+  marca.className = "placeholder-mark";
+  marca.textContent = "SI";
+
+  const texto = document.createElement("span");
+  texto.textContent = "Imagen pendiente";
+
+  placeholder.append(marca, texto);
+  return placeholder;
+}
+
+function crearDetalle(etiqueta, valor) {
+  const fila = document.createElement("div");
+  const dt = document.createElement("dt");
+  const dd = document.createElement("dd");
+
+  dt.textContent = etiqueta;
+  dd.textContent = valor;
+  fila.append(dt, dd);
+
+  return fila;
+}
+
+function formatearPrecio(producto) {
+  if (producto.mostrar_precio === false || producto.precio === null || producto.precio === undefined || producto.precio === "") {
+    return "Consultar";
+  }
+
+  const precio = Number(producto.precio);
+  return Number.isFinite(precio) ? `$${precio.toFixed(2)}` : "Consultar";
+}
+
+function normalizarTexto(texto) {
+  return String(texto || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function activarBotonFiltro(categoria) {
+  const filtros = document.querySelectorAll("[data-filtro]");
+  const categoriaNormalizada = normalizarTexto(categoria);
+
+  filtros.forEach((boton) => {
+    const coincide = normalizarTexto(boton.dataset.filtro) === categoriaNormalizada;
+    boton.classList.toggle("active", coincide);
+  });
+}
+
+function mostrarMensajeCatalogo(mensaje) {
+  const mensajeCatalogo = document.querySelector("[data-catalogo-mensaje]");
+  const contenedor = document.querySelector("[data-productos]");
+
+  if (!mensajeCatalogo) return;
+  if (contenedor) contenedor.innerHTML = "";
+
+  mensajeCatalogo.textContent = mensaje;
+  mensajeCatalogo.hidden = false;
+}
+
+function ocultarMensajeCatalogo() {
+  const mensajeCatalogo = document.querySelector("[data-catalogo-mensaje]");
+  if (mensajeCatalogo) mensajeCatalogo.hidden = true;
+}
+
+function actualizarTotalProductos(total) {
+  const totalProductos = document.querySelector("[data-total-productos]");
+  if (!totalProductos) return;
+
+  totalProductos.textContent = total === 1
+    ? "1 producto encontrado"
+    : `${total} productos encontrados`;
+}
+
+function prepararLinksGenerales() {
+  const links = document.querySelectorAll("[data-whatsapp-general]");
+  const mensaje = "Hola, quiero cotizar un sello personalizado de Sellos Isaac.";
+
+  links.forEach((link) => {
+    link.href = crearLinkWhatsApp(mensaje);
+    link.target = "_blank";
+    link.rel = "noopener";
+  });
+}
+
+function prepararFormularioContacto() {
+  const formulario = document.querySelector("[data-contact-form]");
+  if (!formulario) return;
+
+  formulario.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+
+    const datos = new FormData(formulario);
+    const nombre = datos.get("nombre") || "";
+    const telefono = datos.get("telefono") || "";
+    const tipo = datos.get("tipo") || "";
+    const mensaje = datos.get("mensaje") || "";
+
+    const textoWhatsApp = [
+      `Hola, soy ${nombre}.`,
+      `Quiero cotizar un sello tipo ${tipo}.`,
+      `Mi telefono es ${telefono}.`,
+      mensaje ? `Mensaje: ${mensaje}` : ""
+    ].filter(Boolean).join(" ");
+
+    window.open(crearLinkWhatsApp(textoWhatsApp), "_blank", "noopener");
+  });
+}

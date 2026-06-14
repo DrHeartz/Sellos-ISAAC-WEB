@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Catalogo de Sellos Isaac con sellos automaticos, flash, redondos, pocket, tintas y accesorios.">
+  <title>Cat&aacute;logo | Sellos Isaac</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <a class="brand" href="index.html" aria-label="Sellos Isaac inicio">
+        <span class="brand-mark">SI</span>
+        <span>Sellos Isaac</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navegacion principal">
+        <a href="index.html">Inicio</a>
+        <a class="active" href="catalogo.html">Cat&aacute;logo</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero compact-hero">
+      <div class="container">
+        <p class="eyebrow">Cat&aacute;logo</p>
+        <h1>Sellos, tintas y accesorios</h1>
+        <p>Filtra por categoria o busca por nombre, modelo, tamano o palabra clave.</p>
+      </div>
+    </section>
+
+    <section class="section catalog-section">
+      <div class="container">
+        <div class="catalog-toolbar">
+          <div class="search-wrap">
+            <label for="buscador">Buscar producto</label>
+            <input id="buscador" class="search-input" type="search" placeholder="Ej. Shiny, 38 mm, tinta, flash" data-buscador>
+          </div>
+
+          <div class="filter-group" aria-label="Filtros por categoria">
+            <button class="filter-btn active" type="button" data-filtro="Todos">Todos</button>
+            <button class="filter-btn" type="button" data-filtro="Automatico">Autom&aacute;tico</button>
+            <button class="filter-btn" type="button" data-filtro="Flash">Flash</button>
+            <button class="filter-btn" type="button" data-filtro="Redondo">Redondo</button>
+            <button class="filter-btn" type="button" data-filtro="Pocket">Pocket</button>
+            <button class="filter-btn" type="button" data-filtro="Tinta">Tinta</button>
+          </div>
+        </div>
+
+        <div class="catalog-meta" aria-live="polite">
+          <span data-total-productos>Cargando productos...</span>
+        </div>
+
+        <div class="product-grid" data-productos></div>
+        <div class="catalog-message" data-catalogo-mensaje hidden></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="index.html">
+          <span class="brand-mark">SI</span>
+          <span>Sellos Isaac</span>
+        </a>
+        <p>Sellos personalizados, tintas y accesorios en Panam&aacute;.</p>
+      </div>
+
+      <address class="footer-contact">
+        <a href="https://wa.me/50760000000" target="_blank" rel="noopener">WhatsApp: +507 6000-0000</a>
+        <a href="https://www.instagram.com/sellosisaac/" target="_blank" rel="noopener">Instagram: @sellosisaac</a>
+        <a href="mailto:ventas@sellosisaac.com">Correo: ventas@sellosisaac.com</a>
+        <span>Horario: Lunes a viernes, 8:00 a.m. - 5:00 p.m.</span>
+      </address>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
