@@ -17,6 +17,7 @@ let busquedaActual = "";
 
 document.addEventListener("DOMContentLoaded", () => {
   prepararLinksGenerales();
+  prepararLinksPapeleria();
   prepararCatalogo();
   prepararFormularioContacto();
 });
@@ -293,6 +294,19 @@ function prepararLinksGenerales() {
   const mensaje = "Hola, quiero cotizar un sello personalizado de Sellos Isaac.";
 
   links.forEach((link) => {
+    link.href = crearLinkWhatsApp(mensaje);
+    link.target = "_blank";
+    link.rel = "noopener";
+  });
+}
+
+function prepararLinksPapeleria() {
+  const links = document.querySelectorAll("[data-whatsapp-service]");
+
+  links.forEach((link) => {
+    const servicio = link.dataset.whatsappService || "papeleria";
+    const mensaje = `Hola, quiero cotizar ${servicio} con Sellos Isaac.`;
+
     link.href = crearLinkWhatsApp(mensaje);
     link.target = "_blank";
     link.rel = "noopener";

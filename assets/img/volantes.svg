@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" role="img" aria-labelledby="title desc">
+  <title id="title">Volantes impresos</title>
+  <desc id="desc">Ilustracion de volantes comerciales impresos.</desc>
+  <rect width="360" height="260" rx="20" fill="#ffffff"/>
+  <rect x="26" y="28" width="308" height="204" rx="18" fill="#f6f6f7"/>
+  <g transform="translate(76 36)">
+    <rect x="78" y="0" width="128" height="172" rx="14" fill="#ffffff" stroke="#0d0d0f" stroke-width="7"/>
+    <rect x="102" y="30" width="80" height="44" rx="12" fill="#f26a21"/>
+    <path d="M102 102h68M102 128h84" stroke="#cfd0d6" stroke-width="9" stroke-linecap="round"/>
+    <rect x="0" y="36" width="128" height="172" rx="14" fill="#ffffff" stroke="#0d0d0f" stroke-width="7"/>
+    <path d="M26 74h76M26 104h54M26 134h72" stroke="#0d0d0f" stroke-width="9" stroke-linecap="round"/>
+    <rect x="26" y="28" width="48" height="24" rx="12" fill="#f26a21"/>
+  </g>
+</svg>

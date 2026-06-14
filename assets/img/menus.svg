@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" role="img" aria-labelledby="title desc">
+  <title id="title">Menus para restaurantes</title>
+  <desc id="desc">Ilustracion de menu impreso para restaurantes.</desc>
+  <rect width="360" height="260" rx="20" fill="#ffffff"/>
+  <rect x="26" y="28" width="308" height="204" rx="18" fill="#fff2ea"/>
+  <g transform="translate(72 34)">
+    <rect x="20" y="0" width="176" height="190" rx="18" fill="#ffffff" stroke="#0d0d0f" stroke-width="7"/>
+    <rect x="52" y="30" width="112" height="22" rx="11" fill="#f26a21"/>
+    <path d="M54 84h56M54 114h72M54 144h52" stroke="#0d0d0f" stroke-width="9" stroke-linecap="round"/>
+    <path d="M132 84h34M148 114h18M130 144h36" stroke="#cfd0d6" stroke-width="9" stroke-linecap="round"/>
+    <path d="M0 46c18 3 28 18 28 44v80" stroke="#f26a21" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <path d="M224 46v124" stroke="#f26a21" stroke-width="9" stroke-linecap="round"/>
+    <path d="M208 46h32" stroke="#f26a21" stroke-width="9" stroke-linecap="round"/>
+  </g>
+</svg>

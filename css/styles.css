@@ -291,6 +291,7 @@ p {
 .category-grid,
 .benefits-grid,
 .steps-grid,
+.service-grid,
 .product-grid {
   display: grid;
   gap: 18px;
@@ -303,6 +304,7 @@ p {
 .category-card,
 .benefit-item,
 .step-card,
+.service-card,
 .product-card,
 .contact-panel,
 .quote-form {
@@ -322,6 +324,7 @@ p {
 .category-card:hover,
 .benefit-item:hover,
 .step-card:hover,
+.service-card:hover,
 .product-card:hover {
   border-color: rgba(242, 106, 33, 0.48);
   box-shadow: var(--shadow-soft);
@@ -387,6 +390,37 @@ p {
   margin-top: 26px;
 }
 
+.section-paper-teaser {
+  background: #ffffff;
+}
+
+.paper-teaser {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(240px, 0.58fr);
+  gap: 28px;
+  align-items: center;
+  border: 1px solid rgba(242, 106, 33, 0.18);
+  border-radius: var(--radius);
+  padding: clamp(24px, 4vw, 42px);
+  background:
+    linear-gradient(135deg, rgba(242, 106, 33, 0.12), transparent 42%),
+    var(--color-soft);
+}
+
+.paper-teaser p {
+  max-width: 620px;
+}
+
+.paper-teaser .btn {
+  margin-top: 22px;
+}
+
+.paper-teaser img {
+  width: min(100%, 360px);
+  justify-self: end;
+  filter: drop-shadow(0 18px 30px rgba(13, 13, 15, 0.1));
+}
+
 .steps-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -426,6 +460,81 @@ p {
 
 .page-hero-btn {
   margin-top: 24px;
+}
+
+/* Paper services */
+.service-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.service-card {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.service-card img {
+  width: 100%;
+  height: 170px;
+  object-fit: contain;
+  padding: 18px;
+  border-bottom: 1px solid var(--color-line);
+  background: linear-gradient(145deg, #ffffff, #f5f5f7);
+}
+
+.service-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 18px;
+}
+
+.service-card-body p {
+  margin-bottom: 20px;
+}
+
+.service-card .btn {
+  margin-top: auto;
+}
+
+.options-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.85fr) minmax(0, 1.15fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.options-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.options-list li {
+  position: relative;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  padding: 14px 16px 14px 46px;
+  color: var(--color-ink);
+  background: var(--color-white);
+  font-weight: 800;
+}
+
+.options-list li::before {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-orange);
+  content: "";
+  transform: translateY(-50%);
+  box-shadow: 0 0 0 5px rgba(242, 106, 33, 0.12);
 }
 
 /* Catalog */
@@ -767,6 +876,8 @@ p {
   .footer-grid,
   .benefits-layout,
   .quote-steps,
+  .paper-teaser,
+  .options-layout,
   .page-hero-grid {
     grid-template-columns: 1fr;
   }
@@ -781,6 +892,7 @@ p {
   }
 
   .category-grid,
+  .service-grid,
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -792,6 +904,10 @@ p {
 
   .page-hero-grid img {
     max-width: 360px;
+  }
+
+  .paper-teaser img {
+    justify-self: start;
   }
 }
 
@@ -843,6 +959,7 @@ p {
   .category-grid,
   .benefits-grid,
   .steps-grid,
+  .service-grid,
   .product-grid {
     grid-template-columns: 1fr;
   }
