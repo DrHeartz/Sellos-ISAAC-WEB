@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sellos personalizados en Panama: automaticos, flash, redondos, tintas y accesorios para empresas y profesionales.">
-  <title>Sellos Isaac | Sellos personalizados en Panama</title>
+  <meta name="description" content="Sellos personalizados y papeleria para negocios en Panama.">
+  <title>Sellos Isaac | Sellos y papeler&iacute;a en Panam&aacute;</title>
+  <link rel="icon" href="assets/logo/logo-sellos-isaac.png" type="image/png">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -12,144 +13,173 @@
     <div class="container header-content">
       <a class="brand" href="index.html" aria-label="Sellos Isaac inicio">
         <img class="brand-logo" src="assets/logo/logo-sellos-isaac.png" alt="Sellos Isaac">
+        <span class="brand-copy"><strong>Sellos Isaac</strong><small>Sellos y papeler&iacute;a</small></span>
       </a>
 
-      <nav class="main-nav" aria-label="Navegacion principal">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu">
+        <span></span><span></span>
+      </button>
+
+      <nav id="main-nav" class="main-nav" aria-label="Navegacion principal">
         <a class="active" href="index.html">Inicio</a>
         <a href="catalogo.html">Cat&aacute;logo</a>
         <a href="papeleria.html">Papeler&iacute;a</a>
         <a href="contacto.html">Contacto</a>
+        <a class="nav-mobile-cta" href="contacto.html">Cotizar</a>
       </nav>
+
+      <a class="btn header-cta" href="contacto.html">Cotizar</a>
     </div>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
+    <section class="home-hero">
+      <div class="container hero-layout">
+        <div class="hero-copy" data-reveal>
           <p class="eyebrow">Sellos personalizados en Ciudad de Panam&aacute;</p>
-          <h1>Sellos personalizados en Panam&aacute;</h1>
-          <p class="hero-text">Sellos autom&aacute;ticos, flash, redondos, tintas y soluciones r&aacute;pidas para empresas, oficinas y profesionales.</p>
+          <h1>Sellos personalizados y papeler&iacute;a para negocios en Panam&aacute;</h1>
+          <p class="hero-text">Sellos autom&aacute;ticos, flash, redondos, tintas, facturas, tarjetas, volantes y men&uacute;s con atenci&oacute;n r&aacute;pida para empresas, oficinas y profesionales.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="catalogo.html">Ver cat&aacute;logo</a>
-            <a class="btn btn-whatsapp" href="#" data-whatsapp-general>Cotizar por WhatsApp</a>
-          </div>
-          <div class="hero-trust" aria-label="Datos rapidos">
-            <span>Precios visibles</span>
-            <span>Atenci&oacute;n por WhatsApp</span>
-            <span>Betania, Av. Georgetown</span>
+            <a class="btn btn-accent" href="#" data-whatsapp-general>Cotizar por WhatsApp</a>
           </div>
         </div>
 
-        <div class="hero-visual" aria-hidden="true">
-          <img class="hero-image" src="assets/img/hero-sellos.svg" alt="">
+        <div class="hero-media" data-reveal>
+          <div class="photo-placeholder photo-placeholder-dark" role="img" aria-label="Espacio preparado para fotografia real de sellos personalizados">
+            <span class="photo-label">Fotograf&iacute;a principal</span>
+            <strong>Producci&oacute;n de sellos<br>y papeler&iacute;a</strong>
+            <small>Espacio preparado para imagen real</small>
+          </div>
+          <div class="hero-media-caption">
+            <span>Atenci&oacute;n local</span>
+            <strong>Betania, Ciudad de Panam&aacute;</strong>
+          </div>
         </div>
+      </div>
+
+      <div class="container highlights-strip" data-reveal>
+        <div><strong>Precios visibles</strong><span>Cat&aacute;logo claro</span></div>
+        <div><strong>Atenci&oacute;n por WhatsApp</strong><span>Respuesta directa</span></div>
+        <div><strong>Betania, Panam&aacute;</strong><span>Avenida Georgetown</span></div>
+        <div><strong>20+ a&ntilde;os</strong><span>Experiencia en el rubro</span></div>
       </div>
     </section>
 
-    <section class="section section-categories">
+    <section class="section solutions-section">
       <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Categor&iacute;as</p>
-          <h2>Encuentra el sello que necesitas</h2>
-          <p>Opciones para uso diario, documentos, empresas, profesionales y accesorios.</p>
+        <div class="section-heading section-heading-split" data-reveal>
+          <div>
+            <p class="eyebrow">Soluciones principales</p>
+            <h2>Todo lo necesario para identificar y presentar tu negocio.</h2>
+          </div>
+          <p>Selecciona una l&iacute;nea para explorar modelos, medidas y opciones disponibles.</p>
         </div>
 
-        <div class="category-grid">
-          <a class="category-card" href="catalogo.html?categoria=Automatico">
-            <img src="assets/img/sello-automatico.svg" alt="" aria-hidden="true">
-            <h3>Sellos Autom&aacute;ticos</h3>
-            <p>Modelos autoentintables para uso diario y profesional.</p>
+        <div class="solutions-grid">
+          <a class="solution-card" href="catalogo.html?categoria=Automatico" data-reveal>
+            <div class="solution-media photo-placeholder" role="img" aria-label="Espacio para fotografia de sello automatico">
+              <span class="photo-label">Foto de producto</span>
+              <strong>Sello autom&aacute;tico</strong>
+            </div>
+            <div class="solution-content"><span>01</span><h3>Sellos autom&aacute;ticos</h3><p>Uso diario, limpio y profesional.</p></div>
           </a>
-          <a class="category-card" href="catalogo.html?categoria=Flash">
-            <img src="assets/img/sello-flash.svg" alt="" aria-hidden="true">
-            <h3>Sellos Flash</h3>
-            <p>Sellos r&aacute;pidos, n&iacute;tidos y pr&aacute;cticos para alto movimiento.</p>
+          <a class="solution-card" href="catalogo.html?categoria=Flash" data-reveal>
+            <div class="solution-media photo-placeholder" role="img" aria-label="Espacio para fotografia de sello flash">
+              <span class="photo-label">Foto de producto</span>
+              <strong>Sello flash</strong>
+            </div>
+            <div class="solution-content"><span>02</span><h3>Sellos flash</h3><p>Impresi&oacute;n n&iacute;tida y formato compacto.</p></div>
           </a>
-          <a class="category-card" href="catalogo.html?categoria=Redondo">
-            <img src="assets/img/sello-redondo.svg" alt="" aria-hidden="true">
-            <h3>Sellos Redondos</h3>
-            <p>Opciones redondas para firmas, empresas y certificaciones.</p>
+          <a class="solution-card" href="catalogo.html?categoria=Redondo" data-reveal>
+            <div class="solution-media photo-placeholder" role="img" aria-label="Espacio para fotografia de sello redondo">
+              <span class="photo-label">Foto de producto</span>
+              <strong>Sello redondo</strong>
+            </div>
+            <div class="solution-content"><span>03</span><h3>Sellos redondos</h3><p>Firmas, certificaciones y empresas.</p></div>
           </a>
-          <a class="category-card" href="catalogo.html?categoria=Tinta">
-            <img src="assets/img/tintas.svg" alt="" aria-hidden="true">
-            <h3>Tintas</h3>
-            <p>Tintas y accesorios para mantener tus sellos listos.</p>
+          <a class="solution-card" href="catalogo.html?categoria=Tinta" data-reveal>
+            <div class="solution-media photo-placeholder" role="img" aria-label="Espacio para fotografia de tintas para sellos">
+              <span class="photo-label">Foto de producto</span>
+              <strong>Tintas y accesorios</strong>
+            </div>
+            <div class="solution-content"><span>04</span><h3>Tintas</h3><p>Recargas y accesorios para continuidad.</p></div>
           </a>
         </div>
       </div>
     </section>
 
-    <section class="section section-paper-teaser">
-      <div class="container paper-teaser">
-        <div>
-          <p class="eyebrow">Servicios de impresi&oacute;n</p>
-          <h2>Tambi&eacute;n hacemos papeler&iacute;a para tu negocio</h2>
-          <p>Facturas, tarjetas, volantes y men&uacute;s impresos para empresas, restaurantes y profesionales.</p>
-          <a class="btn btn-primary" href="papeleria.html">Ver papeler&iacute;a</a>
-        </div>
-        <img src="assets/img/papeleria.svg" alt="" aria-hidden="true">
-      </div>
-    </section>
-
-    <section class="section section-muted">
-      <div class="container benefits-layout">
-        <div class="section-heading align-left">
-          <p class="eyebrow">Beneficios</p>
-          <h2>Una compra clara, r&aacute;pida y confiable</h2>
-          <p>Te ayudamos a elegir el modelo correcto, confirmar medidas y cotizar por WhatsApp sin complicaciones.</p>
-        </div>
-
-        <div class="benefits-grid">
-          <article class="benefit-item">
-            <span class="benefit-number">01</span>
-            <h3>Atenci&oacute;n r&aacute;pida</h3>
-            <p>Consultas directas para cotizar, confirmar disponibilidad y avanzar con tu pedido.</p>
-          </article>
-          <article class="benefit-item">
-            <span class="benefit-number">02</span>
-            <h3>Precios visibles</h3>
-            <p>Consulta modelos, tama&ntilde;os y precios desde el cat&aacute;logo antes de escribir.</p>
-          </article>
-          <article class="benefit-item">
-            <span class="benefit-number">03</span>
-            <h3>Ideal para empresas</h3>
-            <p>Sellos para oficinas, comercios, cl&iacute;nicas, contabilidad y profesionales.</p>
-          </article>
-          <article class="benefit-item">
-            <span class="benefit-number">04</span>
-            <h3>Cotizaci&oacute;n por WhatsApp</h3>
-            <p>Elige un producto y env&iacute;a tu consulta con el mensaje listo.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container quote-steps">
-        <div class="quote-steps-copy">
+    <section class="section process-section">
+      <div class="container process-layout">
+        <div class="process-intro" data-reveal>
           <p class="eyebrow">C&oacute;mo cotizar</p>
-          <h2>Tu sello listo en tres pasos</h2>
-          <p>Comparte los datos del sello, el tama&ntilde;o o una referencia de dise&ntilde;o para recibir una cotizaci&oacute;n clara.</p>
-          <a class="btn btn-whatsapp" href="#" data-whatsapp-general>Cotizar ahora</a>
+          <h2>De tu idea a una cotizaci&oacute;n clara.</h2>
+          <p>Un proceso directo, sin pasos innecesarios.</p>
+          <a class="text-link" href="contacto.html">Iniciar cotizaci&oacute;n <span aria-hidden="true">&rarr;</span></a>
         </div>
 
-        <div class="steps-grid">
-          <article class="step-card">
-            <span>1</span>
-            <h3>Escoge tu sello</h3>
-            <p>Revisa el cat&aacute;logo y elige el modelo que mejor encaje con tu uso.</p>
-          </article>
-          <article class="step-card">
-            <span>2</span>
-            <h3>Env&iacute;anos tu dise&ntilde;o o datos</h3>
-            <p>Comparte texto, logo, medidas o una referencia para preparar tu propuesta.</p>
-          </article>
-          <article class="step-card">
-            <span>3</span>
-            <h3>Recibe tu cotizaci&oacute;n por WhatsApp</h3>
-            <p>Te respondemos con precio, disponibilidad y los siguientes pasos.</p>
-          </article>
+        <ol class="process-list">
+          <li data-reveal><span>01</span><div><h3>Escoge tu producto</h3><p>Consulta el cat&aacute;logo o elige el servicio de papeler&iacute;a que necesitas.</p></div></li>
+          <li data-reveal><span>02</span><div><h3>Env&iacute;anos tus datos</h3><p>Comparte texto, logo, medidas, cantidades o una referencia visual.</p></div></li>
+          <li data-reveal><span>03</span><div><h3>Recibe tu cotizaci&oacute;n</h3><p>Confirmamos precio, disponibilidad y siguientes pasos por WhatsApp.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section paper-feature-section">
+      <div class="container paper-feature" data-reveal>
+        <div class="paper-feature-copy">
+          <p class="eyebrow">Papeler&iacute;a para negocios</p>
+          <h2>Impresos que acompa&ntilde;an tu operaci&oacute;n y tu marca.</h2>
+          <p>Facturas, tarjetas de presentaci&oacute;n, volantes y men&uacute;s preparados seg&uacute;n tu necesidad.</p>
+          <a class="btn btn-light" href="papeleria.html">Explorar papeler&iacute;a</a>
+        </div>
+        <div class="photo-placeholder photo-placeholder-light" role="img" aria-label="Espacio preparado para fotografia real de papeleria impresa">
+          <span class="photo-label">Fotograf&iacute;a editorial</span>
+          <strong>Papeler&iacute;a impresa<br>para negocios</strong>
+          <small>Facturas · tarjetas · volantes · men&uacute;s</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section trust-section">
+      <div class="container">
+        <div class="section-heading section-heading-split" data-reveal>
+          <div><p class="eyebrow">Por qu&eacute; elegirnos</p><h2>Experiencia local, atenci&oacute;n directa.</h2></div>
+          <p>Combinamos conocimiento del producto con una comunicaci&oacute;n sencilla para ayudarte a resolver r&aacute;pido.</p>
+        </div>
+
+        <div class="trust-grid">
+          <article data-reveal><strong>20+</strong><h3>A&ntilde;os de experiencia</h3><p>Conocimiento pr&aacute;ctico del rubro y las necesidades de negocios en Panam&aacute;.</p></article>
+          <article data-reveal><strong>01</strong><h3>Contacto directo</h3><p>Hablas con una persona para aclarar modelos, medidas y disponibilidad.</p></article>
+          <article data-reveal><strong>02</strong><h3>Informaci&oacute;n clara</h3><p>Precios visibles en sellos y cotizaciones preparadas seg&uacute;n cada solicitud.</p></article>
+          <article data-reveal><strong>03</strong><h3>Soluci&oacute;n integral</h3><p>Sellos, tintas y papeler&iacute;a comercial en un mismo punto de contacto.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section testimonials-section">
+      <div class="container testimonials-layout" data-reveal>
+        <div>
+          <p class="eyebrow">Testimonios</p>
+          <h2>La confianza se demuestra pedido a pedido.</h2>
+          <p>Esta secci&oacute;n est&aacute; preparada para publicar rese&ntilde;as verificadas de clientes reales.</p>
+        </div>
+        <div class="testimonial-placeholder">
+          <span>Pr&oacute;ximamente</span>
+          <blockquote>“Aqu&iacute; mostraremos experiencias reales de empresas, oficinas y profesionales atendidos por Sellos Isaac.”</blockquote>
+          <small>Espacio reservado para testimonio verificado</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-cta-section">
+      <div class="container final-cta" data-reveal>
+        <p class="eyebrow">Hablemos de tu proyecto</p>
+        <h2>Tu pr&oacute;ximo sello o impreso empieza con una conversaci&oacute;n.</h2>
+        <div class="final-cta-actions">
+          <a class="btn btn-light" href="#" data-whatsapp-general>Cotizar por WhatsApp</a>
+          <a class="text-link text-link-light" href="catalogo.html">Ver cat&aacute;logo <span aria-hidden="true">&rarr;</span></a>
         </div>
       </div>
     </section>
@@ -160,16 +190,16 @@
       <div>
         <a class="brand footer-brand" href="index.html">
           <img class="brand-logo" src="assets/logo/logo-sellos-isaac.png" alt="Sellos Isaac">
+          <span class="brand-copy"><strong>Sellos Isaac</strong><small>Sellos y papeler&iacute;a</small></span>
         </a>
-        <p>Sellos personalizados, tintas y accesorios en Panam&aacute;.</p>
+        <p>Sellos personalizados y papeler&iacute;a para negocios en Panam&aacute;.</p>
       </div>
-
       <address class="footer-contact">
         <a href="https://wa.me/50767604522" target="_blank" rel="noopener">WhatsApp: +507 6760-4522</a>
         <a href="https://www.instagram.com/sellosisaac/" target="_blank" rel="noopener">Instagram: @sellosisaac</a>
-        <a href="mailto:sellosisaac@hotmail.com">Correo: sellosisaac@hotmail.com</a>
-        <span>Horario: Lunes a viernes, 8:00 a.m. - 5:00 p.m. | S&aacute;bados, 8:00 a.m. - 12:00 p.m.</span>
-        <span>Ubicaci&oacute;n: Ciudad de Panam&aacute;, Betania, Avenida Georgetown.</span>
+        <a href="mailto:sellosisaac@hotmail.com">sellosisaac@hotmail.com</a>
+        <span>Lunes a viernes, 8:00 a.m. - 5:00 p.m. | S&aacute;bados, 8:00 a.m. - 12:00 p.m.</span>
+        <span>Betania, Avenida Georgetown, Ciudad de Panam&aacute;.</span>
       </address>
     </div>
   </footer>

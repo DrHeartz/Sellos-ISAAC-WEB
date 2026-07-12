@@ -3,112 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Contacta a Sellos Isaac para cotizar sellos personalizados, tintas y accesorios en Panama.">
+  <meta name="description" content="Contacta a Sellos Isaac en Ciudad de Panama.">
   <title>Contacto | Sellos Isaac</title>
+  <link rel="icon" href="assets/logo/logo-sellos-isaac.png" type="image/png">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header class="site-header">
     <div class="container header-content">
-      <a class="brand" href="index.html" aria-label="Sellos Isaac inicio">
-        <img class="brand-logo" src="assets/logo/logo-sellos-isaac.png" alt="Sellos Isaac">
-      </a>
-
-      <nav class="main-nav" aria-label="Navegacion principal">
-        <a href="index.html">Inicio</a>
-        <a href="catalogo.html">Cat&aacute;logo</a>
-        <a href="papeleria.html">Papeler&iacute;a</a>
-        <a class="active" href="contacto.html">Contacto</a>
-      </nav>
+      <a class="brand" href="index.html" aria-label="Sellos Isaac inicio"><img class="brand-logo" src="assets/logo/logo-sellos-isaac.png" alt="Sellos Isaac"><span class="brand-copy"><strong>Sellos Isaac</strong><small>Sellos y papeler&iacute;a</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu"><span></span><span></span></button>
+      <nav id="main-nav" class="main-nav" aria-label="Navegacion principal"><a href="index.html">Inicio</a><a href="catalogo.html">Cat&aacute;logo</a><a href="papeleria.html">Papeler&iacute;a</a><a class="active" href="contacto.html">Contacto</a><a class="nav-mobile-cta" href="#cotizacion">Cotizar</a></nav>
+      <a class="btn header-cta" href="#cotizacion">Cotizar</a>
     </div>
   </header>
 
   <main>
-    <section class="page-hero compact-hero">
-      <div class="container page-hero-grid">
-        <div>
-          <p class="eyebrow">Contacto</p>
-          <h1>Cotiza tu sello personalizado</h1>
-          <p>Envia los detalles de tu pedido y te respondemos por WhatsApp.</p>
-          <a class="btn btn-whatsapp page-hero-btn" href="#" data-whatsapp-general>Cotizar por WhatsApp</a>
+    <section class="inner-hero contact-hero">
+      <div class="container inner-hero-layout">
+        <div data-reveal>
+          <p class="eyebrow">Contacto directo</p>
+          <h1>Hablemos de lo que necesitas.</h1>
+          <p>Consulta modelos, medidas, precios o servicios de papeler&iacute;a. Te respondemos por WhatsApp.</p>
+          <a class="btn btn-accent inner-hero-cta" href="#" data-whatsapp-general>Escribir por WhatsApp</a>
         </div>
-        <img src="assets/img/oficina-sellos.svg" alt="" aria-hidden="true">
+        <div class="photo-placeholder inner-hero-media" role="img" aria-label="Espacio preparado para fotografia real del taller o atencion de Sellos Isaac" data-reveal>
+          <span class="photo-label">Fotograf&iacute;a del negocio</span>
+          <strong>Atenci&oacute;n local<br>en Betania</strong>
+          <small>Espacio listo para imagen real</small>
+        </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container contact-grid">
-        <div class="contact-panel">
-          <img class="contact-logo" src="assets/logo/logo-sellos-isaac.png" alt="Sellos Isaac">
-
-          <div class="section-heading align-left">
-            <p class="eyebrow">Contacto r&aacute;pido</p>
-            <h2>Estamos listos para ayudarte</h2>
-            <p>Escr&iacute;benos por WhatsApp para consultar modelos, precios, medidas o disponibilidad.</p>
-          </div>
-
-          <a class="btn btn-whatsapp btn-full contact-whatsapp" href="#" data-whatsapp-general>WhatsApp: +507 6760-4522</a>
-
-          <div class="contact-list">
-            <a class="contact-item" href="https://wa.me/50767604522" target="_blank" rel="noopener">
-              <span>WhatsApp</span>
-              <strong>+507 6760-4522</strong>
-            </a>
-            <a class="contact-item" href="https://www.instagram.com/sellosisaac/" target="_blank" rel="noopener">
-              <span>Instagram</span>
-              <strong>@sellosisaac</strong>
-            </a>
-            <a class="contact-item" href="mailto:sellosisaac@hotmail.com">
-              <span>Correo</span>
-              <strong>sellosisaac@hotmail.com</strong>
-            </a>
-            <div class="contact-item">
-              <span>Horario</span>
-              <strong>Lunes a viernes, 8:00 a.m. - 5:00 p.m. | S&aacute;bados, 8:00 a.m. - 12:00 p.m.</strong>
-            </div>
-            <div class="contact-item">
-              <span>Ubicaci&oacute;n</span>
-              <strong>Ciudad de Panam&aacute;, Betania, Avenida Georgetown.</strong>
-            </div>
+    <section class="section contact-section">
+      <div class="container contact-layout">
+        <div class="contact-info" data-reveal>
+          <p class="eyebrow">Canales de contacto</p>
+          <h2>Estamos cerca y disponibles.</h2>
+          <div class="contact-channels">
+            <a href="https://wa.me/50767604522" target="_blank" rel="noopener"><span>WhatsApp</span><strong>+507 6760-4522</strong></a>
+            <a href="mailto:sellosisaac@hotmail.com"><span>Correo</span><strong>sellosisaac@hotmail.com</strong></a>
+            <a href="https://www.instagram.com/sellosisaac/" target="_blank" rel="noopener"><span>Instagram</span><strong>@sellosisaac</strong></a>
+            <div><span>Ubicaci&oacute;n</span><strong>Betania, Avenida Georgetown, Ciudad de Panam&aacute;</strong></div>
+            <div><span>Horario</span><strong>Lunes a viernes, 8:00 a.m. - 5:00 p.m.<br>S&aacute;bados, 8:00 a.m. - 12:00 p.m.</strong></div>
           </div>
         </div>
 
-        <form class="quote-form" data-contact-form>
-          <div class="form-header">
-            <p class="eyebrow">Formulario visual</p>
-            <h2>Arma tu mensaje</h2>
-            <p>El bot&oacute;n abrir&aacute; WhatsApp con tu solicitud lista para enviar.</p>
-          </div>
-
-          <div class="form-row">
-            <label for="nombre">Nombre</label>
-            <input id="nombre" name="nombre" type="text" autocomplete="name" required>
-          </div>
-
-          <div class="form-row">
-            <label for="telefono">Tel&eacute;fono</label>
-            <input id="telefono" name="telefono" type="tel" autocomplete="tel" required>
-          </div>
-
-          <div class="form-row">
-            <label for="tipo">Tipo de sello</label>
-            <select id="tipo" name="tipo" required>
-              <option value="">Seleccionar</option>
-              <option>Autom&aacute;tico</option>
-              <option>Flash</option>
-              <option>Redondo</option>
-              <option>Pocket</option>
-              <option>Tinta o accesorio</option>
-              <option>Otro</option>
-            </select>
-          </div>
-
-          <div class="form-row">
-            <label for="mensaje">Mensaje</label>
-            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Modelo, tama&ntilde;o, texto del sello o cantidad requerida"></textarea>
-          </div>
-
-          <button class="btn btn-whatsapp btn-full" type="submit">Cotizar por WhatsApp</button>
+        <form class="quote-form" id="cotizacion" data-contact-form data-reveal>
+          <div class="form-header"><p class="eyebrow">Cotizaci&oacute;n</p><h2>Prepara tu mensaje.</h2><p>Completamos el texto y abrimos WhatsApp para que puedas enviarlo.</p></div>
+          <div class="form-row"><label for="nombre">Nombre</label><input id="nombre" name="nombre" type="text" autocomplete="name" required></div>
+          <div class="form-row"><label for="telefono">Tel&eacute;fono</label><input id="telefono" name="telefono" type="tel" autocomplete="tel" required></div>
+          <div class="form-row"><label for="tipo">Tipo de producto</label><select id="tipo" name="tipo" required><option value="">Seleccionar</option><option>Autom&aacute;tico</option><option>Flash</option><option>Redondo</option><option>Pocket</option><option>Tinta o accesorio</option><option>Papeler&iacute;a</option><option>Otro</option></select></div>
+          <div class="form-row"><label for="mensaje">Detalles</label><textarea id="mensaje" name="mensaje" rows="5" placeholder="Modelo, tama&ntilde;o, texto, cantidad o referencia"></textarea></div>
+          <button class="btn btn-accent btn-full" type="submit">Cotizar por WhatsApp</button>
         </form>
       </div>
     </section>
@@ -116,23 +63,10 @@
 
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div>
-        <a class="brand footer-brand" href="index.html">
-          <img class="brand-logo" src="assets/logo/logo-sellos-isaac.png" alt="Sellos Isaac">
-        </a>
-        <p>Sellos personalizados, tintas y accesorios en Panam&aacute;.</p>
-      </div>
-
-      <address class="footer-contact">
-        <a href="https://wa.me/50767604522" target="_blank" rel="noopener">WhatsApp: +507 6760-4522</a>
-        <a href="https://www.instagram.com/sellosisaac/" target="_blank" rel="noopener">Instagram: @sellosisaac</a>
-        <a href="mailto:sellosisaac@hotmail.com">Correo: sellosisaac@hotmail.com</a>
-        <span>Horario: Lunes a viernes, 8:00 a.m. - 5:00 p.m. | S&aacute;bados, 8:00 a.m. - 12:00 p.m.</span>
-        <span>Ubicaci&oacute;n: Ciudad de Panam&aacute;, Betania, Avenida Georgetown.</span>
-      </address>
+      <div><a class="brand footer-brand" href="index.html"><img class="brand-logo" src="assets/logo/logo-sellos-isaac.png" alt="Sellos Isaac"><span class="brand-copy"><strong>Sellos Isaac</strong><small>Sellos y papeler&iacute;a</small></span></a><p>Sellos personalizados y papeler&iacute;a para negocios en Panam&aacute;.</p></div>
+      <address class="footer-contact"><a href="https://wa.me/50767604522" target="_blank" rel="noopener">WhatsApp: +507 6760-4522</a><a href="https://www.instagram.com/sellosisaac/" target="_blank" rel="noopener">Instagram: @sellosisaac</a><a href="mailto:sellosisaac@hotmail.com">sellosisaac@hotmail.com</a><span>Lunes a viernes, 8:00 a.m. - 5:00 p.m. | S&aacute;bados, 8:00 a.m. - 12:00 p.m.</span><span>Betania, Avenida Georgetown, Ciudad de Panam&aacute;.</span></address>
     </div>
   </footer>
-
   <script src="js/main.js"></script>
 </body>
 </html>

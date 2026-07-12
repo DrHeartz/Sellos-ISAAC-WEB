@@ -1,14 +1,7 @@
 const WHATSAPP_NUMBER = "50767604522";
 const PRODUCTS_ENDPOINT = "data/productos.json";
 
-const CATEGORY_IMAGES = {
-  automatico: "assets/img/sello-automatico.svg",
-  flash: "assets/img/sello-flash.svg",
-  redondo: "assets/img/sello-redondo.svg",
-  pocket: "assets/img/oficina-sellos.svg",
-  tinta: "assets/img/tintas.svg",
-  otros: "assets/img/oficina-sellos.svg"
-};
+document.documentElement.classList.add("js");
 
 // Estado compartido del catalogo.
 let productosOriginales = [];
@@ -16,6 +9,8 @@ let categoriaActiva = "Todos";
 let busquedaActual = "";
 
 document.addEventListener("DOMContentLoaded", () => {
+  prepararNavegacion();
+  prepararRevelado();
   prepararLinksGenerales();
   prepararLinksPapeleria();
   prepararCatalogo();
@@ -169,6 +164,10 @@ function crearTarjetaProducto(producto) {
   titulo.className = "product-title";
   titulo.textContent = producto.nombre || "Producto sin nombre";
 
+  const modelo = document.createElement("span");
+  modelo.className = "product-model";
+  modelo.textContent = producto.modelo ? `Modelo ${producto.modelo}` : "Modelo por confirmar";
+
   const precio = document.createElement("span");
   precio.className = "product-price";
   precio.textContent = formatearPrecio(producto);
@@ -186,7 +185,7 @@ function crearTarjetaProducto(producto) {
   enlace.rel = "noopener";
   enlace.textContent = "Cotizar por WhatsApp";
 
-  cuerpo.append(categoria, titulo, precio, detalles, enlace);
+  cuerpo.append(categoria, titulo, modelo, precio, detalles, enlace);
   tarjeta.append(media, cuerpo);
 
   return tarjeta;
@@ -196,33 +195,40 @@ function crearMediaProducto(producto) {
   const media = document.createElement("div");
   media.className = "product-media";
 
+  if (!producto.url_foto) {
+    media.appendChild(crearPlaceholderProducto(producto));
+    return media;
+  }
+
   const imagen = document.createElement("img");
-  const imagenFallback = obtenerImagenCategoria(producto);
-  imagen.src = producto.url_foto || imagenFallback;
+  imagen.src = producto.url_foto;
   imagen.alt = producto.nombre || "Producto de Sellos Isaac";
   imagen.loading = "lazy";
-
   imagen.addEventListener("error", () => {
-    if (imagen.src.includes(imagenFallback)) return;
-    imagen.src = imagenFallback;
+    media.replaceChildren(crearPlaceholderProducto(producto));
   });
 
   media.appendChild(imagen);
   return media;
 }
 
-function obtenerImagenCategoria(producto) {
-  const categoria = normalizarTexto(producto.categoria);
-  const forma = normalizarTexto(producto.forma);
-  const nombre = normalizarTexto(producto.nombre);
+function crearPlaceholderProducto(producto) {
+  const placeholder = document.createElement("div");
+  placeholder.className = "product-photo-placeholder";
+  placeholder.setAttribute("role", "img");
+  placeholder.setAttribute("aria-label", `Espacio preparado para fotografia de ${producto.nombre || "producto"}`);
 
-  if (categoria === "tinta") return CATEGORY_IMAGES.tinta;
-  if (categoria === "flash") return CATEGORY_IMAGES.flash;
-  if (categoria === "pocket") return CATEGORY_IMAGES.pocket;
-  if (forma.includes("redondo") || nombre.includes("redondo")) return CATEGORY_IMAGES.redondo;
-  if (categoria === "automatico") return CATEGORY_IMAGES.automatico;
+  const etiqueta = document.createElement("span");
+  etiqueta.textContent = "Fotografia de producto";
 
-  return CATEGORY_IMAGES.otros;
+  const categoria = document.createElement("strong");
+  categoria.textContent = producto.categoria || "Sellos Isaac";
+
+  const referencia = document.createElement("small");
+  referencia.textContent = [producto.modelo, producto.tamano].filter(Boolean).join(" · ") || "Imagen real proximamente";
+
+  placeholder.append(etiqueta, categoria, referencia);
+  return placeholder;
 }
 
 function crearDetalle(etiqueta, valor) {
@@ -300,6 +306,53 @@ function prepararLinksGenerales() {
   });
 }
 
+function prepararNavegacion() {
+  const encabezado = document.querySelector(".site-header");
+  const boton = document.querySelector(".nav-toggle");
+  const navegacion = document.querySelector(".main-nav");
+  if (!encabezado || !boton || !navegacion) return;
+
+  const cerrarMenu = () => {
+    encabezado.classList.remove("nav-open");
+    boton.setAttribute("aria-expanded", "false");
+    boton.setAttribute("aria-label", "Abrir menu");
+  };
+
+  boton.addEventListener("click", () => {
+    const abierto = encabezado.classList.toggle("nav-open");
+    boton.setAttribute("aria-expanded", String(abierto));
+    boton.setAttribute("aria-label", abierto ? "Cerrar menu" : "Abrir menu");
+  });
+
+  navegacion.addEventListener("click", (evento) => {
+    if (evento.target.closest("a")) cerrarMenu();
+  });
+
+  document.addEventListener("keydown", (evento) => {
+    if (evento.key === "Escape") cerrarMenu();
+  });
+}
+
+function prepararRevelado() {
+  const elementos = document.querySelectorAll("[data-reveal]");
+  if (!elementos.length) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+    elementos.forEach((elemento) => elemento.classList.add("is-visible"));
+    return;
+  }
+
+  const observador = new IntersectionObserver((entradas) => {
+    entradas.forEach((entrada) => {
+      if (!entrada.isIntersecting) return;
+      entrada.target.classList.add("is-visible");
+      observador.unobserve(entrada.target);
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -40px" });
+
+  elementos.forEach((elemento) => observador.observe(elemento));
+}
+
 function prepararLinksPapeleria() {
   const links = document.querySelectorAll("[data-whatsapp-service]");
 
@@ -328,7 +381,7 @@ function prepararFormularioContacto() {
 
     const textoWhatsApp = [
       `Hola, soy ${nombre}.`,
-      `Quiero cotizar un sello tipo ${tipo}.`,
+      `Quiero cotizar un producto o servicio tipo ${tipo}.`,
       `Mi telefono es ${telefono}.`,
       mensaje ? `Mensaje: ${mensaje}` : ""
     ].filter(Boolean).join(" ");
