@@ -186,49 +186,32 @@ function crearTarjetaProducto(producto) {
   enlace.textContent = "Cotizar por WhatsApp";
 
   cuerpo.append(categoria, titulo, modelo, precio, detalles, enlace);
-  tarjeta.append(media, cuerpo);
+  if (media) {
+    tarjeta.appendChild(media);
+  }
+  tarjeta.appendChild(cuerpo);
 
   return tarjeta;
 }
 
 function crearMediaProducto(producto) {
-  const media = document.createElement("div");
-  media.className = "product-media";
-
   if (!producto.url_foto) {
-    media.appendChild(crearPlaceholderProducto(producto));
-    return media;
+    return null;
   }
 
+  const media = document.createElement("div");
+  media.className = "product-media";
   const imagen = document.createElement("img");
   imagen.src = producto.url_foto;
   imagen.alt = producto.nombre || "Producto de Sellos Isaac";
   imagen.loading = "lazy";
+  imagen.decoding = "async";
   imagen.addEventListener("error", () => {
-    media.replaceChildren(crearPlaceholderProducto(producto));
+    media.remove();
   });
 
   media.appendChild(imagen);
   return media;
-}
-
-function crearPlaceholderProducto(producto) {
-  const placeholder = document.createElement("div");
-  placeholder.className = "product-photo-placeholder";
-  placeholder.setAttribute("role", "img");
-  placeholder.setAttribute("aria-label", `Espacio preparado para fotografia de ${producto.nombre || "producto"}`);
-
-  const etiqueta = document.createElement("span");
-  etiqueta.textContent = "Fotografia de producto";
-
-  const categoria = document.createElement("strong");
-  categoria.textContent = producto.categoria || "Sellos Isaac";
-
-  const referencia = document.createElement("small");
-  referencia.textContent = [producto.modelo, producto.tamano].filter(Boolean).join(" · ") || "Imagen real proximamente";
-
-  placeholder.append(etiqueta, categoria, referencia);
-  return placeholder;
 }
 
 function crearDetalle(etiqueta, valor) {

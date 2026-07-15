@@ -336,84 +336,19 @@ textarea:focus-visible {
   outline-offset: 3px;
 }
 
-/* Premium photo placeholders */
-.photo-placeholder {
-  position: relative;
-  display: flex;
+/* Premium photographic media */
+.premium-media {
   overflow: hidden;
-  flex-direction: column;
-  justify-content: flex-end;
   border: 1px solid #d7dcda;
-  border-radius: var(--radius-large);
-  padding: clamp(24px, 4vw, 48px);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(225, 229, 226, 0.75)),
-    #e7eae7;
-  isolation: isolate;
+  border-radius: 20px;
+  background: var(--surface-soft);
+  box-shadow: 0 18px 48px rgba(13, 24, 34, 0.08);
 }
 
-.photo-placeholder::before,
-.photo-placeholder::after {
-  position: absolute;
-  z-index: -1;
-  border: 1px solid rgba(13, 43, 69, 0.12);
-  content: "";
-}
-
-.photo-placeholder::before {
-  inset: 10% 9% 18% 16%;
-}
-
-.photo-placeholder::after {
-  inset: 20% 18% 8% 8%;
-}
-
-.photo-placeholder-dark {
-  color: var(--white);
-  border-color: rgba(255, 255, 255, 0.12);
-  background: linear-gradient(145deg, #0a1016, #153a56);
-}
-
-.photo-placeholder-dark::before,
-.photo-placeholder-dark::after {
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-.photo-placeholder-light {
-  color: var(--ink);
-  background: linear-gradient(145deg, #ffffff, #e7ebe8);
-}
-
-.photo-label {
-  position: relative;
-  z-index: 1;
-  margin-bottom: 14px;
-  color: var(--orange-dark);
-  font-size: 0.72rem;
-  font-weight: 850;
-  text-transform: uppercase;
-}
-
-.photo-placeholder-dark .photo-label {
-  color: #ffb17d;
-}
-
-.photo-placeholder strong {
-  position: relative;
-  z-index: 1;
-  max-width: 520px;
-  font-size: clamp(1.8rem, 3.6vw, 3.7rem);
-  line-height: 1.02;
-}
-
-.photo-placeholder small {
-  position: relative;
-  z-index: 1;
-  margin-top: 16px;
-  color: inherit;
-  opacity: 0.62;
-  font-size: 0.82rem;
-  font-weight: 650;
+.premium-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Home hero */
@@ -461,8 +396,12 @@ textarea:focus-visible {
   padding-bottom: 34px;
 }
 
-.hero-media > .photo-placeholder {
-  min-height: clamp(620px, 48vw, 790px);
+.hero-image-frame {
+  height: clamp(620px, 48vw, 790px);
+}
+
+.hero-image {
+  object-position: center;
 }
 
 .hero-media-caption {
@@ -558,18 +497,52 @@ textarea:focus-visible {
 }
 
 .solution-media {
-  min-height: clamp(380px, 31vw, 500px);
+  height: clamp(380px, 31vw, 500px);
+  overflow: hidden;
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   transition: transform 280ms ease, box-shadow 280ms ease;
 }
 
+.solution-image {
+  transition: transform 420ms ease;
+}
+
+.solution-panel {
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(28px, 3vw, 46px);
+}
+
+.solution-panel-dark {
+  color: var(--white);
+  border-color: #20262c;
+  background: #171b20;
+}
+
+.solution-panel-blue {
+  color: var(--white);
+  border-color: #183e5d;
+  background: var(--blue);
+}
+
+.solution-panel-light {
+  color: var(--blue);
+  background: #e7ebe8;
+}
+
 .solution-media strong {
   font-size: clamp(1.8rem, 3vw, 3rem);
+  line-height: 1.05;
 }
 
 .solution-card:hover .solution-media {
   box-shadow: var(--shadow-lift);
   transform: translateY(-6px);
+}
+
+.solution-card:hover .solution-image {
+  transform: scale(1.025);
 }
 
 .solution-content {
@@ -685,8 +658,12 @@ textarea:focus-visible {
   line-height: 1.75;
 }
 
-.paper-feature .photo-placeholder {
-  min-height: clamp(500px, 36vw, 650px);
+.paper-feature-media {
+  height: clamp(500px, 36vw, 650px);
+}
+
+.paper-feature-media img {
+  object-position: center;
 }
 
 /* Trust */
@@ -744,19 +721,19 @@ textarea:focus-visible {
   margin-top: 24px;
 }
 
-.testimonial-placeholder {
+.testimonial-statement {
   border-left: 3px solid var(--orange);
   padding: 14px 0 14px clamp(28px, 5vw, 64px);
 }
 
-.testimonial-placeholder > span {
+.testimonial-statement > span {
   color: var(--orange-dark);
   font-size: 0.72rem;
   font-weight: 850;
   text-transform: uppercase;
 }
 
-.testimonial-placeholder blockquote {
+.testimonial-statement blockquote {
   margin: 22px 0;
   color: var(--blue);
   font-size: clamp(1.65rem, 3.4vw, 3.2rem);
@@ -764,7 +741,7 @@ textarea:focus-visible {
   line-height: 1.2;
 }
 
-.testimonial-placeholder small {
+.testimonial-statement small {
   color: var(--muted);
 }
 
@@ -812,6 +789,11 @@ textarea:focus-visible {
   align-items: center;
 }
 
+.inner-hero-layout.inner-hero-layout-text {
+  min-height: clamp(420px, 46vh, 580px);
+  grid-template-columns: minmax(0, 1080px);
+}
+
 .inner-hero h1 {
   max-width: 860px;
   font-size: clamp(3.2rem, 5.2vw, 6.1rem);
@@ -834,7 +816,11 @@ textarea:focus-visible {
 }
 
 .inner-hero-media {
-  min-height: clamp(520px, 39vw, 680px);
+  height: clamp(520px, 39vw, 680px);
+}
+
+.inner-hero-media img {
+  object-position: center;
 }
 
 .inner-hero-cta {
@@ -975,51 +961,6 @@ textarea:focus-visible {
   padding: 28px;
 }
 
-.product-photo-placeholder {
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 26px;
-  background: linear-gradient(145deg, #ecefeb, #d9dfdc);
-}
-
-.product-photo-placeholder::after {
-  position: absolute;
-  inset: 16% 12% 25% 22%;
-  border: 1px solid rgba(13, 43, 69, 0.14);
-  content: "";
-}
-
-.product-photo-placeholder span,
-.product-photo-placeholder strong,
-.product-photo-placeholder small {
-  position: relative;
-  z-index: 1;
-}
-
-.product-photo-placeholder span {
-  color: var(--orange-dark);
-  font-size: 0.68rem;
-  font-weight: 850;
-  text-transform: uppercase;
-}
-
-.product-photo-placeholder strong {
-  margin-top: 8px;
-  color: var(--blue);
-  font-size: 1.65rem;
-  line-height: 1.05;
-}
-
-.product-photo-placeholder small {
-  margin-top: 8px;
-  color: var(--muted);
-}
-
 .product-body {
   display: flex;
   flex: 1;
@@ -1110,23 +1051,21 @@ textarea:focus-visible {
   gap: 70px clamp(26px, 2vw, 38px);
 }
 
-.paper-service-media {
-  min-height: clamp(400px, 30vw, 520px);
-  border-radius: var(--radius);
+.paper-service {
+  min-height: 300px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
-.paper-service-media strong {
-  font-size: clamp(2rem, 3.4vw, 3.4rem);
-}
-
-.paper-service > div:last-child {
+.paper-service-content {
   display: grid;
   grid-template-columns: 42px 1fr;
+  align-content: start;
   gap: 4px 14px;
-  padding: 24px 4px 0;
+  padding: 34px 4px;
 }
 
-.paper-service > div:last-child > span {
+.paper-service-content > span {
   grid-row: 1 / 4;
   color: var(--orange-dark);
   font-size: 0.72rem;
@@ -1327,14 +1266,12 @@ textarea:focus-visible {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .solution-media,
-  .paper-service-media {
-    min-height: 460px;
+  .solution-media {
+    height: 460px;
   }
 
   .product-media,
-  .product-media img,
-  .product-photo-placeholder {
+  .product-media img {
     min-height: 320px;
     height: 320px;
   }
@@ -1371,8 +1308,8 @@ textarea:focus-visible {
     gap: clamp(96px, 6vw, 150px);
   }
 
-  .hero-media > .photo-placeholder {
-    min-height: 840px;
+  .hero-image-frame {
+    height: 840px;
   }
 
   .inner-hero-layout {
@@ -1380,7 +1317,7 @@ textarea:focus-visible {
   }
 
   .inner-hero-media {
-    min-height: 720px;
+    height: 720px;
   }
 
   .section {
@@ -1392,9 +1329,8 @@ textarea:focus-visible {
     gap: 76px 32px;
   }
 
-  .solution-media,
-  .paper-service-media {
-    min-height: 500px;
+  .solution-media {
+    height: 500px;
   }
 
   .trust-grid article {
@@ -1526,8 +1462,8 @@ textarea:focus-visible {
     width: min(100%, 720px);
   }
 
-  .hero-media > .photo-placeholder {
-    min-height: 480px;
+  .hero-image-frame {
+    height: 480px;
   }
 
   .highlights-strip {
@@ -1557,9 +1493,9 @@ textarea:focus-visible {
     gap: 36px;
   }
 
-  .paper-feature .photo-placeholder,
+  .paper-feature-media,
   .inner-hero-media {
-    min-height: 400px;
+    height: 400px;
   }
 
   .catalog-toolbar {
@@ -1614,8 +1550,8 @@ textarea:focus-visible {
     padding-bottom: 0;
   }
 
-  .hero-media > .photo-placeholder {
-    min-height: 390px;
+  .hero-image-frame {
+    height: 390px;
   }
 
   .hero-media-caption {
@@ -1655,9 +1591,8 @@ textarea:focus-visible {
     grid-template-columns: 1fr;
   }
 
-  .solution-media,
-  .paper-service-media {
-    min-height: 310px;
+  .solution-media {
+    height: 310px;
   }
 
   .process-list li {
@@ -1670,9 +1605,9 @@ textarea:focus-visible {
     padding: 28px 22px;
   }
 
-  .paper-feature .photo-placeholder,
+  .paper-feature-media,
   .inner-hero-media {
-    min-height: 330px;
+    height: 330px;
   }
 
   .trust-grid article {
@@ -1690,7 +1625,7 @@ textarea:focus-visible {
     margin-bottom: 34px;
   }
 
-  .testimonial-placeholder {
+  .testimonial-statement {
     padding-left: 22px;
   }
 
@@ -1708,8 +1643,7 @@ textarea:focus-visible {
   }
 
   .product-media,
-  .product-media img,
-  .product-photo-placeholder {
+  .product-media img {
     min-height: 270px;
     height: 270px;
   }
