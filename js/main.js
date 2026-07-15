@@ -1,5 +1,74 @@
 const WHATSAPP_NUMBER = "50767604522";
+const WHATSAPP_ICON = "assets/icons/whatsapp-icon.png";
 const PRODUCTS_ENDPOINT = "data/productos.json";
+const PRODUCT_CATEGORY_MEDIA = {
+  rectangular: {
+    src: "assets/img/catalogo/sellos-rectangulares-premium.png",
+    width: 1254,
+    height: 1254,
+    alt: "Imagen de referencia de sello automatico rectangular"
+  },
+  cuadrado: {
+    src: "assets/img/catalogo/sellos-cuadrados-premium.png",
+    width: 1254,
+    height: 1254,
+    alt: "Imagen de referencia de sello automatico cuadrado"
+  },
+  ovalado: {
+    src: "assets/img/catalogo/sellos-ovalados-premium.png",
+    width: 1254,
+    height: 1254,
+    alt: "Imagen de referencia de sello automatico ovalado"
+  },
+  flash: {
+    src: "assets/img/catalogo/sellos-flash-premium.png",
+    width: 1254,
+    height: 1254,
+    alt: "Imagen de referencia de sellos flash profesionales"
+  },
+  fidelizacion: {
+    src: "assets/img/catalogo/sellos-fidelizacion-premium.png",
+    width: 1448,
+    height: 1086,
+    alt: "Imagen de referencia de sello para tarjetas de fidelizacion"
+  },
+  redondoShiny: {
+    src: "assets/img/catalogo/sello-redondo-shiny-premium.png",
+    width: 1254,
+    height: 1254,
+    alt: "Imagen de referencia de sello automatico redondo Shiny"
+  },
+  flashRedondo: {
+    src: "assets/img/catalogo/flash-redondo-premium.png",
+    width: 1254,
+    height: 1254,
+    alt: "Imagen de referencia de sello flash redondo"
+  },
+  flashAzul: {
+    src: "assets/img/catalogo/flash-azul-premium.png",
+    width: 1254,
+    height: 1254,
+    alt: "Imagen de referencia de sello flash azul"
+  },
+  pocket: {
+    src: "assets/img/catalogo/pocket-stamp-premium.png",
+    width: 1402,
+    height: 1122,
+    alt: "Imagen de referencia de sello Pocket Stamp portatil"
+  },
+  redondo: {
+    src: "assets/img/categorias/sellos-redondos-premium.png",
+    width: 1448,
+    height: 1086,
+    alt: "Imagen de referencia de sellos redondos profesionales"
+  },
+  tinta: {
+    src: "assets/img/catalogo/tintas-premium.png",
+    width: 1448,
+    height: 1086,
+    alt: "Imagen de referencia de tintas y accesorios para sellos"
+  }
+};
 
 document.documentElement.classList.add("js");
 
@@ -13,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
   prepararRevelado();
   prepararLinksGenerales();
   prepararLinksPapeleria();
+  prepararWhatsAppVisual();
   prepararCatalogo();
   prepararFormularioContacto();
 });
@@ -179,11 +249,11 @@ function crearTarjetaProducto(producto) {
   detalles.appendChild(crearDetalle("Stock", producto.stock || "Consultar"));
 
   const enlace = document.createElement("a");
-  enlace.className = "btn btn-whatsapp";
+  enlace.className = "btn btn-whatsapp with-whatsapp-icon";
   enlace.href = crearLinkWhatsApp(producto);
   enlace.target = "_blank";
   enlace.rel = "noopener";
-  enlace.textContent = "Cotizar por WhatsApp";
+  enlace.append(crearIconoWhatsApp(), document.createTextNode("Cotizar por WhatsApp"));
 
   cuerpo.append(categoria, titulo, modelo, precio, detalles, enlace);
   if (media) {
@@ -195,23 +265,147 @@ function crearTarjetaProducto(producto) {
 }
 
 function crearMediaProducto(producto) {
-  if (!producto.url_foto) {
-    return null;
-  }
-
   const media = document.createElement("div");
   media.className = "product-media";
   const imagen = document.createElement("img");
-  imagen.src = producto.url_foto;
-  imagen.alt = producto.nombre || "Producto de Sellos Isaac";
+  const usaFallback = !producto.url_foto;
+  const fallback = obtenerMediaCategoria(producto);
+
+  imagen.src = usaFallback ? fallback.src : producto.url_foto;
+  imagen.alt = usaFallback ? fallback.alt : producto.nombre || "Producto de Sellos Isaac";
   imagen.loading = "lazy";
   imagen.decoding = "async";
-  imagen.addEventListener("error", () => {
-    media.remove();
-  });
 
-  media.appendChild(imagen);
+  if (usaFallback) {
+    media.classList.add("product-media-fallback");
+    imagen.width = fallback.width;
+    imagen.height = fallback.height;
+    media.appendChild(crearEtiquetaMediaReferencia());
+  }
+
+  imagen.addEventListener("error", () => {
+    if (media.classList.contains("product-media-fallback")) {
+      media.remove();
+      return;
+    }
+
+    media.classList.add("product-media-fallback");
+    imagen.src = fallback.src;
+    imagen.alt = fallback.alt;
+    imagen.width = fallback.width;
+    imagen.height = fallback.height;
+    media.appendChild(crearEtiquetaMediaReferencia());
+  }, { once: true });
+
+  media.prepend(imagen);
   return media;
+}
+
+function obtenerMediaCategoria(producto) {
+  const categoria = normalizarTexto(producto.categoria);
+  const forma = normalizarTexto(producto.forma);
+  const contexto = normalizarTexto([
+    producto.categoria,
+    producto.forma,
+    producto.subcategoria,
+    producto.nombre,
+    producto.palabras_clave
+  ].filter(Boolean).join(" "));
+
+  if (categoria === "tinta") {
+    return PRODUCT_CATEGORY_MEDIA.tinta;
+  }
+
+  if (categoria === "pocket" || contexto.includes("pocket")) {
+    return PRODUCT_CATEGORY_MEDIA.pocket;
+  }
+
+  if (contexto.includes("fidelizacion")) {
+    return PRODUCT_CATEGORY_MEDIA.fidelizacion;
+  }
+
+  if (categoria === "flash" && (forma.includes("redond") || contexto.includes("round"))) {
+    return PRODUCT_CATEGORY_MEDIA.flashRedondo;
+  }
+
+  if (categoria === "flash" && (contexto.includes("azul") || contexto.includes("blue"))) {
+    return PRODUCT_CATEGORY_MEDIA.flashAzul;
+  }
+
+  if (categoria === "flash") {
+    return PRODUCT_CATEGORY_MEDIA.flash;
+  }
+
+  if (forma.includes("oval")) {
+    return PRODUCT_CATEGORY_MEDIA.ovalado;
+  }
+
+  if (forma.includes("cuadrad")) {
+    return PRODUCT_CATEGORY_MEDIA.cuadrado;
+  }
+
+  if (forma.includes("redond") || forma.includes("circular")) {
+    return contexto.includes("shiny")
+      ? PRODUCT_CATEGORY_MEDIA.redondoShiny
+      : PRODUCT_CATEGORY_MEDIA.redondo;
+  }
+
+  if (contexto.includes("oval")) return PRODUCT_CATEGORY_MEDIA.ovalado;
+  if (contexto.includes("cuadrad")) return PRODUCT_CATEGORY_MEDIA.cuadrado;
+  if (contexto.includes("redondo") || contexto.includes("circular")) return PRODUCT_CATEGORY_MEDIA.redondo;
+
+  if (contexto.includes("tinta") || contexto.includes("almohadilla")) {
+    return PRODUCT_CATEGORY_MEDIA.tinta;
+  }
+
+  return PRODUCT_CATEGORY_MEDIA.rectangular;
+}
+
+function crearEtiquetaMediaReferencia() {
+  const etiqueta = document.createElement("span");
+  etiqueta.className = "product-media-note";
+  etiqueta.textContent = "Imagen de referencia";
+  return etiqueta;
+}
+
+function crearIconoWhatsApp(claseAdicional = "") {
+  const icono = document.createElement("img");
+  icono.className = `whatsapp-icon ${claseAdicional}`.trim();
+  icono.src = WHATSAPP_ICON;
+  icono.width = 20;
+  icono.height = 20;
+  icono.alt = "";
+  icono.setAttribute("aria-hidden", "true");
+  icono.decoding = "async";
+  return icono;
+}
+
+function agregarIconoWhatsApp(elemento) {
+  if (!elemento || elemento.querySelector(".whatsapp-icon")) return;
+  elemento.classList.add("with-whatsapp-icon");
+  elemento.prepend(crearIconoWhatsApp());
+}
+
+function prepararWhatsAppVisual() {
+  const puntosContacto = document.querySelectorAll([
+    "[data-whatsapp-general]",
+    "[data-whatsapp-service]",
+    ".footer-contact a[href*='wa.me/']",
+    "[data-contact-form] button[type='submit']"
+  ].join(","));
+
+  puntosContacto.forEach(agregarIconoWhatsApp);
+
+  if (document.querySelector(".whatsapp-float")) return;
+
+  const flotante = document.createElement("a");
+  flotante.className = "whatsapp-float";
+  flotante.href = crearLinkWhatsApp("Hola, quiero cotizar con Sellos Isaac.");
+  flotante.target = "_blank";
+  flotante.rel = "noopener";
+  flotante.setAttribute("aria-label", "Contactar por WhatsApp");
+  flotante.appendChild(crearIconoWhatsApp("whatsapp-float-icon"));
+  document.body.appendChild(flotante);
 }
 
 function crearDetalle(etiqueta, valor) {

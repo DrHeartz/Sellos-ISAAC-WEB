@@ -28,33 +28,37 @@
   </header>
 
   <main>
-    <section class="inner-hero inner-hero-compact">
-      <div class="container inner-hero-layout inner-hero-layout-text">
-        <div data-reveal>
-          <p class="eyebrow">Cat&aacute;logo</p>
-          <h1>El sello correcto para cada forma de trabajar.</h1>
-          <p>Explora modelos, medidas y precios. Filtra por categor&iacute;a o busca directamente por nombre, modelo o tama&ntilde;o.</p>
+    <section class="catalog-hero">
+      <div class="container catalog-hero-layout">
+        <div class="catalog-hero-copy" data-reveal>
+          <div class="catalog-hero-intro">
+            <p class="eyebrow">Cat&aacute;logo</p>
+            <h1>El sello correcto para cada forma de trabajar.</h1>
+            <p>Explora modelos, medidas y precios. Filtra por categor&iacute;a o busca directamente por nombre, modelo o tama&ntilde;o.</p>
+          </div>
+          <div class="catalog-toolbar catalog-hero-toolbar">
+            <div class="search-wrap">
+              <label for="buscador">Buscar producto</label>
+              <input id="buscador" class="search-input" type="search" placeholder="Ej. Shiny, R-542, 38 mm, tinta" data-buscador>
+            </div>
+            <div class="filter-group" aria-label="Filtros por categoria">
+              <button class="filter-btn active" type="button" data-filtro="Todos">Todos</button>
+              <button class="filter-btn" type="button" data-filtro="Automatico">Autom&aacute;tico</button>
+              <button class="filter-btn" type="button" data-filtro="Flash">Flash</button>
+              <button class="filter-btn" type="button" data-filtro="Redondo">Redondo</button>
+              <button class="filter-btn" type="button" data-filtro="Pocket">Pocket</button>
+              <button class="filter-btn" type="button" data-filtro="Tinta">Tinta</button>
+            </div>
+          </div>
+        </div>
+        <div class="premium-media catalog-hero-media" data-reveal>
+          <img src="assets/img/catalogo/catalogo-hero-premium.png" width="1916" height="821" alt="Colecci&oacute;n premium de sellos autom&aacute;ticos, redondos, tintas y accesorios" fetchpriority="high" decoding="async">
         </div>
       </div>
     </section>
 
     <section class="section catalog-section">
       <div class="container">
-        <div class="catalog-toolbar" data-reveal>
-          <div class="search-wrap">
-            <label for="buscador">Buscar producto</label>
-            <input id="buscador" class="search-input" type="search" placeholder="Ej. Shiny, R-542, 38 mm, tinta" data-buscador>
-          </div>
-          <div class="filter-group" aria-label="Filtros por categoria">
-            <button class="filter-btn active" type="button" data-filtro="Todos">Todos</button>
-            <button class="filter-btn" type="button" data-filtro="Automatico">Autom&aacute;tico</button>
-            <button class="filter-btn" type="button" data-filtro="Flash">Flash</button>
-            <button class="filter-btn" type="button" data-filtro="Redondo">Redondo</button>
-            <button class="filter-btn" type="button" data-filtro="Pocket">Pocket</button>
-            <button class="filter-btn" type="button" data-filtro="Tinta">Tinta</button>
-          </div>
-        </div>
-
         <div class="catalog-meta" aria-live="polite">
           <span data-total-productos>Cargando productos...</span>
         </div>
