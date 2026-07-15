@@ -1,72 +1,73 @@
 const WHATSAPP_NUMBER = "50767604522";
 const WHATSAPP_ICON = "assets/icons/whatsapp-icon.png";
 const PRODUCTS_ENDPOINT = "data/productos.json";
+const SITE_URL = "https://isaacentebi.com/";
 const PRODUCT_CATEGORY_MEDIA = {
   rectangular: {
     src: "assets/img/catalogo/sellos-rectangulares-premium.png",
     width: 1254,
     height: 1254,
-    alt: "Imagen de referencia de sello automatico rectangular"
+    alt: "Sello automatico rectangular personalizado en Panama"
   },
   cuadrado: {
     src: "assets/img/catalogo/sellos-cuadrados-premium.png",
     width: 1254,
     height: 1254,
-    alt: "Imagen de referencia de sello automatico cuadrado"
+    alt: "Sello automatico cuadrado personalizado en Panama"
   },
   ovalado: {
     src: "assets/img/catalogo/sellos-ovalados-premium.png",
     width: 1254,
     height: 1254,
-    alt: "Imagen de referencia de sello automatico ovalado"
+    alt: "Sello automatico ovalado personalizado en Panama"
   },
   flash: {
     src: "assets/img/catalogo/sellos-flash-premium.png",
     width: 1254,
     height: 1254,
-    alt: "Imagen de referencia de sellos flash profesionales"
+    alt: "Sellos flash profesionales personalizados en Panama"
   },
   fidelizacion: {
     src: "assets/img/catalogo/sellos-fidelizacion-premium.png",
     width: 1448,
     height: 1086,
-    alt: "Imagen de referencia de sello para tarjetas de fidelizacion"
+    alt: "Sello para tarjetas de fidelizacion en Panama"
   },
   redondoShiny: {
     src: "assets/img/catalogo/sello-redondo-shiny-premium.png",
     width: 1254,
     height: 1254,
-    alt: "Imagen de referencia de sello automatico redondo Shiny"
+    alt: "Sello automatico redondo Shiny en Panama"
   },
   flashRedondo: {
     src: "assets/img/catalogo/flash-redondo-premium.png",
     width: 1254,
     height: 1254,
-    alt: "Imagen de referencia de sello flash redondo"
+    alt: "Sello flash redondo personalizado en Panama"
   },
   flashAzul: {
     src: "assets/img/catalogo/flash-azul-premium.png",
     width: 1254,
     height: 1254,
-    alt: "Imagen de referencia de sello flash azul"
+    alt: "Sello flash azul personalizado en Panama"
   },
   pocket: {
     src: "assets/img/catalogo/pocket-stamp-premium.png",
     width: 1402,
     height: 1122,
-    alt: "Imagen de referencia de sello Pocket Stamp portatil"
+    alt: "Sello Pocket Stamp portatil en Panama"
   },
   redondo: {
     src: "assets/img/categorias/sellos-redondos-premium.png",
     width: 1448,
     height: 1086,
-    alt: "Imagen de referencia de sellos redondos profesionales"
+    alt: "Sellos redondos profesionales en Panama"
   },
   tinta: {
     src: "assets/img/catalogo/tintas-premium.png",
     width: 1448,
     height: 1086,
-    alt: "Imagen de referencia de tintas y accesorios para sellos"
+    alt: "Tintas y accesorios para sellos en Panama"
   }
 };
 
@@ -188,6 +189,7 @@ async function prepararCatalogo() {
   }
 
   productosOriginales = await cargarProductos();
+  actualizarDatosEstructuradosCatalogo(productosOriginales);
   aplicarFiltros();
   prepararEventosCatalogo();
 }
@@ -221,6 +223,7 @@ function aplicarFiltros() {
 function crearTarjetaProducto(producto) {
   const tarjeta = document.createElement("article");
   tarjeta.className = "product-card";
+  tarjeta.id = crearIdProducto(producto);
 
   const media = crearMediaProducto(producto);
   const cuerpo = document.createElement("div");
@@ -262,6 +265,91 @@ function crearTarjetaProducto(producto) {
   tarjeta.appendChild(cuerpo);
 
   return tarjeta;
+}
+
+// Expone el catalogo real como ItemList/Product sin duplicar datos en el HTML.
+function actualizarDatosEstructuradosCatalogo(productos) {
+  const anterior = document.querySelector("[data-catalog-structured-data]");
+  if (anterior) anterior.remove();
+  if (!productos.length) return;
+
+  const datos = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${SITE_URL}catalogo.html#productos`,
+    name: "Cat\u00e1logo de sellos personalizados de Sellos Isaac",
+    url: `${SITE_URL}catalogo.html`,
+    numberOfItems: productos.length,
+    itemListElement: productos.map((producto, indice) => ({
+      "@type": "ListItem",
+      position: indice + 1,
+      item: crearProductoEstructurado(producto)
+    }))
+  };
+
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.dataset.catalogStructuredData = "";
+  script.textContent = JSON.stringify(datos);
+  document.head.appendChild(script);
+}
+
+function crearProductoEstructurado(producto) {
+  const idProducto = crearIdProducto(producto);
+  const urlProducto = `${SITE_URL}catalogo.html#${idProducto}`;
+  const media = producto.url_foto || obtenerMediaCategoria(producto).src;
+  const precio = Number(producto.precio);
+  const oferta = {
+    "@type": "Offer",
+    url: urlProducto,
+    priceCurrency: "USD",
+    price: Number.isFinite(precio) ? precio.toFixed(2) : undefined,
+    seller: { "@id": `${SITE_URL}#business` }
+  };
+  const disponibilidad = obtenerDisponibilidadSchema(producto.stock);
+  if (disponibilidad) oferta.availability = disponibilidad;
+
+  const datos = {
+    "@type": "Product",
+    "@id": urlProducto,
+    name: producto.nombre,
+    url: urlProducto,
+    image: crearUrlAbsoluta(media),
+    sku: producto.sku,
+    model: producto.modelo,
+    category: producto.categoria,
+    description: producto.descripcion,
+    offers: oferta
+  };
+
+  if (producto.marca) {
+    datos.brand = { "@type": "Brand", name: producto.marca };
+  }
+
+  return Object.fromEntries(Object.entries(datos).filter(([, valor]) => valor !== undefined && valor !== ""));
+}
+
+function crearIdProducto(producto) {
+  const base = producto.slug || producto.sku || producto.modelo || producto.nombre || "producto";
+  const id = normalizarTexto(base)
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  return `producto-${id || "sin-id"}`;
+}
+
+function crearUrlAbsoluta(ruta) {
+  try {
+    return new URL(ruta, SITE_URL).href;
+  } catch (error) {
+    return `${SITE_URL}catalogo.html`;
+  }
+}
+
+function obtenerDisponibilidadSchema(stock) {
+  const valor = normalizarTexto(stock);
+  if (valor.includes("por pedir")) return "https://schema.org/PreOrder";
+  if (valor.includes("disponible") || valor.includes("en stock")) return "https://schema.org/InStock";
+  return "";
 }
 
 function crearMediaProducto(producto) {
